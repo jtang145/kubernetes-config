@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-retain-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: sc-azure-retain
+  resources:
+    requests:
+      storage: 1Gi

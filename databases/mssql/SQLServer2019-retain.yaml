@@ -15,11 +15,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-sql-system
+  name: pvc-mssql-2019
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: managed-premium
+  storageClassName: sc-azure-retain
   resources:
     requests:
       storage: 10Gi
@@ -35,23 +35,23 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mssql-deployment
+  name: mssql-deployment-2019-ubuntu
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mssql
+      app: mssql-2019-ubuntu
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mssql
+        app: mssql-2019-ubuntu
     spec:
       securityContext:
         fsGroup: 10001
       containers:
-        - name: mssql
+        - name: mssql-2019-ubuntu
           image: 'mcr.microsoft.com/mssql/server:2019-CU4-ubuntu-18.04'
           ports:
             - containerPort: 1433
@@ -69,15 +69,15 @@ spec:
       volumes:
         - name: mssql-system
           persistentVolumeClaim:
-            claimName: pvc-sql-system
+            claimName: pvc-mssql-2019
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mssql-deployment
+  name: mssql-deployment-2019-ubuntu
 spec:
   selector:
-    app: mssql
+    app: mssql-2019-ubuntu
   ports:
     - protocol: TCP
       port: 31433

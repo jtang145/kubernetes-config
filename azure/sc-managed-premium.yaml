@@ -1,0 +1,40 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: managed-premium
+  selfLink: /apis/storage.k8s.io/v1/storageclasses/managed-premium
+  uid: 7b0984f5-e750-4a32-a2af-1c53399cacc1
+  resourceVersion: '300'
+  creationTimestamp: '2021-01-21T07:29:15Z'
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+    kubernetes.io/cluster-service: 'true'
+  managedFields:
+    - manager: kubectl
+      operation: Update
+      apiVersion: storage.k8s.io/v1beta1
+      time: '2021-01-21T07:29:15Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:allowVolumeExpansion': {}
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:addonmanager.kubernetes.io/mode': {}
+            'f:kubernetes.io/cluster-service': {}
+        'f:parameters':
+          .: {}
+          'f:cachingmode': {}
+          'f:kind': {}
+          'f:storageaccounttype': {}
+        'f:provisioner': {}
+        'f:reclaimPolicy': {}
+        'f:volumeBindingMode': {}
+provisioner: kubernetes.io/azure-disk
+parameters:
+  cachingmode: ReadOnly
+  kind: Managed
+  storageaccounttype: Premium_LRS
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
