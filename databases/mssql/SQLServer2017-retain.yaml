@@ -1,21 +1,7 @@
-# This is not needed on AKS
-#apiVersion: storage.k8s.io/v1
-#kind: StorageClass
-#metadata:
-#  name: managed-premium
-#provisioner: kubernetes.io/azure-disk
-#reclaimPolicy: Retain
-#volumeBindingMode: WaitForFirstConsumer
-#parameters:
-#  cachingmode: ReadOnly
-#  kind: Managed
-#  resourceGroup: rg-apm-jtang
-#  storageaccounttype: Premium_LRS
-#---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-mssql-2019
+  name: pvc-mssql-2017
 spec:
   accessModes:
     - ReadWriteOnce
@@ -35,24 +21,24 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mssql-deployment-2019-ubuntu
+  name: mssql-deployment-2017-ubuntu
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mssql-2019-ubuntu
+      app: mssql-2017-ubuntu
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: mssql-2019-ubuntu
+        app: mssql-2017-ubuntu
     spec:
       securityContext:
         fsGroup: 10001
       containers:
-        - name: mssql-2019-ubuntu
-          image: 'mcr.microsoft.com/mssql/server:2019-CU4-ubuntu-18.04'
+        - name: mssql-2017-ubuntu
+          image: 'mcr.microsoft.com/mssql/server:2017-latest'
           ports:
             - containerPort: 1433
           env:
@@ -69,18 +55,18 @@ spec:
       volumes:
         - name: mssql-system
           persistentVolumeClaim:
-            claimName: pvc-mssql-2019
+            claimName: pvc-mssql-2017
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mssql-deployment-2019-ubuntu
+  name: mssql-deployment-2017-ubuntu
 spec:
   selector:
-    app: mssql-2019-ubuntu
+    app: mssql-2017-ubuntu
   ports:
     - protocol: TCP
-      port: 14339
+      port: 14337
       targetPort: 1433
   type: LoadBalancer
 
