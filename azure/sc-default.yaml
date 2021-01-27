@@ -1,16 +1,24 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  labels:
-    kubernetes.io/cluster-service: "true"
-  name: default
-parameters:
-  cachingmode: ReadOnly
-  kind: Managed
-  storageaccounttype: Standard_LRS
+  name: azure-disk
 provisioner: kubernetes.io/azure-disk
-reclaimPolicy: Delete
-volumeBindingMode: Immediate
+parameters:
+  storageaccounttype: Standard_LRS
+  kind: Managed
+#apiVersion: storage.k8s.io/v1
+#kind: StorageClass
+#metadata:
+#  labels:
+#    kubernetes.io/cluster-service: "true"
+#  name: default
+#parameters:
+#  cachingmode: ReadOnly
+#  kind: Managed
+#  storageaccounttype: Standard_LRS
+#provisioner: kubernetes.io/azure-disk
+#reclaimPolicy: Delete
+#volumeBindingMode: Immediate
 
 # Reference:
 # https://dev.to/azure/how-to-use-custom-storage-classes-in-kubernetes-3jo4
