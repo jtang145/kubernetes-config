@@ -1,0 +1,144 @@
+Name:         sqlservers.mssql.microsoft.com
+Namespace:    
+Labels:       <none>
+Annotations:  <none>
+API Version:  apiextensions.k8s.io/v1
+Kind:         CustomResourceDefinition
+Metadata:
+  Creation Timestamp:  2021-01-26T06:20:21Z
+  Generation:          1
+  Resource Version:  3369
+  Self Link:         /apis/apiextensions.k8s.io/v1/customresourcedefinitions/sqlservers.mssql.microsoft.com
+  UID:               1eca5710-552d-4f96-afc8-76952aa98033
+Spec:
+  Conversion:
+    Strategy:  None
+  Group:       mssql.microsoft.com
+  Names:
+    Kind:                   SqlServer
+    List Kind:              SqlServerList
+    Plural:                 sqlservers
+    Singular:               sqlserver
+  Preserve Unknown Fields:  true
+  Scope:                    Namespaced
+  Versions:
+    Name:  v1
+    Schema:
+      openAPIV3Schema:
+        Properties:
+          Spec:
+            One Of:
+              Properties:
+                Instance Root Volume:
+                  Description:  io.k8s.api.core.v1.Volume
+                  Type:         object
+              Required:
+                instanceRootVolume
+              Properties:
+                Instance Root Volume Claim Template:
+                  Description:  io.k8s.api.core.v1.PersistentVolumeClaimSpec
+                  Type:         object
+              Required:
+                instanceRootVolumeClaimTemplate
+            Properties:
+              Accept Eula:
+                Enum:
+                  true
+              Agents Container Image:
+                Type:  string
+              Availability Groups:
+                Items:
+                  One Of:
+                    Type:  string
+                    Properties:
+                      Availability Mode:
+                        Enum:
+                          asynchronousCommit
+                          configurationOnly
+                          synchronousCommit
+                      Can Async Create Ag:
+                        Type:  boolean
+                      Name:
+                        Type:  string
+                    Required:
+                      name
+                    Type:  object
+                Type:      array
+              Connection Timeout Sec:
+                Minimum:  1
+                Type:     integer
+              Health Connection Reboot Timeout Sec:
+                Minimum:  0
+                Type:     integer
+              Init SQL Pod:
+                Description:  io.k8s.api.core.v1.PodSpec
+                Type:         object
+              Join Command Timeout Sec:
+                Minimum:  5
+                Type:     integer
+              Master Key Password:
+                Description:  io.k8s.api.core.v1.EnvVarSource
+                Type:         object
+              Monitor Policy:
+                Maximum:  5
+                Minimum:  0
+                Type:     integer
+              Pid:
+                Type:  string
+              Query Command Timeout Sec:
+                Minimum:  5
+                Type:     integer
+              Replicas:
+                Format:   int32
+                Minimum:  1
+                Type:     integer
+              Sa Password:
+                Description:  io.k8s.api.core.v1.EnvVarSource
+                Type:         object
+              Skip Ag Anti Affinity:
+                Type:  boolean
+              Sql Post Init Script:
+                Type:  string
+              Sql Server Container:
+                Description:  io.k8s.api.core.v1.Container
+                Type:         object
+              Sql Server Pod:
+                Description:  io.k8s.api.core.v1.PodSpec
+                Type:         object
+              Transient DB Health Timeout Sec:
+                Minimum:  10
+                Type:     integer
+            Required:
+              sqlServerContainer
+              saPassword
+              agentsContainerImage
+              acceptEula
+        Required:
+          spec
+    Served:   true
+    Storage:  true
+Status:
+  Accepted Names:
+    Kind:       SqlServer
+    List Kind:  SqlServerList
+    Plural:     sqlservers
+    Singular:   sqlserver
+  Conditions:
+    Last Transition Time:  2021-01-26T06:20:21Z
+    Message:               [spec.versions[0].schema.openAPIV3Schema.properties[spec].oneOf[0].properties[instanceRootVolume].description: Forbidden: must be empty to be structural, spec.versions[0].schema.openAPIV3Schema.properties[spec].oneOf[0].properties[instanceRootVolume].type: Forbidden: must be empty to be structural, spec.versions[0].schema.openAPIV3Schema.properties[spec].oneOf[1].properties[instanceRootVolumeClaimTemplate].description: Forbidden: must be empty to be structural, spec.versions[0].schema.openAPIV3Schema.properties[spec].oneOf[1].properties[instanceRootVolumeClaimTemplate].type: Forbidden: must be empty to be structural, spec.versions[0].schema.openAPIV3Schema.properties[spec].properties[acceptEula].type: Required value: must not be empty for specified object fields, spec.versions[0].schema.openAPIV3Schema.properties[spec].properties[availabilityGroups].items.oneOf[0].type: Forbidden: must be empty to be structural, spec.versions[0].schema.openAPIV3Schema.properties[spec].properties[availabilityGroups].items.oneOf[1].properties[canAsyncCreateAg].type: Forbidden: must be empty to be structural, spec.versions[0].schema.openAPIV3Schema.properties[spec].properties[availabilityGroups].items.oneOf[1].properties[name].type: Forbidden: must be empty to be structural, spec.versions[0].schema.openAPIV3Schema.properties[spec].properties[availabilityGroups].items.oneOf[1].type: Forbidden: must be empty to be structural, spec.versions[0].schema.openAPIV3Schema.properties[spec].properties[availabilityGroups].items.type: Required value: must not be empty for specified array items, spec.versions[0].schema.openAPIV3Schema.properties[spec].type: Required value: must not be empty for specified object fields, spec.versions[0].schema.openAPIV3Schema.type: Required value: must not be empty at the root]
+    Reason:                Violations
+    Status:                True
+    Type:                  NonStructuralSchema
+    Last Transition Time:  2021-01-26T06:20:21Z
+    Message:               no conflicts found
+    Reason:                NoConflicts
+    Status:                True
+    Type:                  NamesAccepted
+    Last Transition Time:  2021-01-26T06:20:21Z
+    Message:               the initial names have been accepted
+    Reason:                InitialNamesAccepted
+    Status:                True
+    Type:                  Established
+  Stored Versions:
+    v1
+Events:  <none>
