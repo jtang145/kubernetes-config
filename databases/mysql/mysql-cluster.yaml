@@ -1,0 +1,35 @@
+## For Helm v2
+#  helm repo add presslabs https://presslabs.github.io/charts
+#  helm install presslabs/mysql-operator --name mysql-operator
+
+## For Helm v3
+#  helm repo add presslabs https://presslabs.github.io/charts
+#  helm install mysql-operator presslabs/mysql-operator
+#---
+apiVersion: mysql.presslabs.org/v1alpha1
+kind: MysqlCluster
+metadata:
+  name: my-cluster
+spec:
+  replicas: 1
+  secretName: my-cluster-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-cluster-secret
+type: Opaque
+data:
+  ROOT_PASSWORD: UmRpczJmdW4h
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-ha
+spec:
+  ports:
+    - { name: tds, port: 13306 }
+  selector:
+    name: my-cluster-mysql-master
+    type: MysqlCluster
+  type: LoadBalancer
